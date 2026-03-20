@@ -19,29 +19,9 @@ Frontend: Streamlit
 
 Data Handling: Pandas
 
-Language: Python 3.x
+Language: Python 3.11.9
 
 Security: Python-Dotenv
 
-⚙️ Setup & Installation
-Clone the repository:
-
-Bash
-git clone https://github.com/YOUR_USERNAME/your-repo-name.git
-cd your-repo-name
-Install dependencies:
-
-Bash
-pip install -r requirements.txt
-Configure Environment Variables:
-Create a .env file in the root directory (refer to .env.example) and add your Azure credentials:
-
-Plaintext
-AZURE_LANGUAGE_KEY=your_actual_key_here
-AZURE_LANGUAGE_ENDPOINT=your_endpoint_url_here
-Run the Application:
-
-Bash
-streamlit run app.py
 📊 Business Value
 This tool reduces the manual labor required to categorize feedback. By identifying specific pain points (like "slow delivery" or "expensive pricing") within a larger message, businesses can route issues to the correct departments instantly, improving customer satisfaction and response times.
