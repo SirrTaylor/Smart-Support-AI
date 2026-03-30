@@ -62,10 +62,25 @@ if st.button("Analyze Message"):
             if opinion_list:
                 df = pd.DataFrame(opinion_list)
                 
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    st.metric("Total Insights", len(df))
+                    
+                with col2:
+                    sentiment_counts = df['Feeling'].value_counts()
+                    st.bar_chart(sentiment_counts)
+
                 #remove duplicate entries
                 df = df.drop_duplicates()
+                
+                def color_sentiment(val):
+                    color = '#2ecc71' if val == 'Positive' else '#e74c3c' if val == 'Negative' else '#f1c40f'
+                    return f'background-color: {color}; color: white'
 
-                st.dataframe(df,use_container_width= True,hide_index=True)
+            # Use this to display
+                st.dataframe(df.style.applymap(color_sentiment, subset=['Feeling']), use_container_width=True,hide_index=True)
+            
 
                 #allow download of findings
                 st.divider()
