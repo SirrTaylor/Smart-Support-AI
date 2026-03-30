@@ -41,18 +41,30 @@ if st.button("Analyze Message"):
             else:
                 st.info(f"Overall Sentiment:{sentiment}")
             #extracting opinions
-            opinion_list=[]
+            opinion_list = []
             for sentence in doc.sentences:
+                # If there are specific opinions (Aspect-based sentiment)
                 for op in sentence.mined_opinions:
                     aspect = op.target.text.capitalize()
-                    feeling=op.target.sentiment.capitalize()
                     
-                    details = ",".join([a.text for a in op.assessments])
-                    opinion_list.append({"Aspect": aspect, "Feeling":feeling,"Description":details})
+                    # A single aspect (like 'Food') can have multiple assessments
+                    for assessment in op.assessments:
+                        feeling = assessment.sentiment.capitalize()
+                        description = assessment.text
+                        
+                        opinion_list.append({
+                            "Aspect": aspect, 
+                            "Feeling": feeling, 
+                            "Description": description
+                        })
             #display a table with opinions
             st.subheader("Detailed Insights")
             if opinion_list:
                 df = pd.DataFrame(opinion_list)
+                
+                #remove duplicate entries
+                df = df.drop_duplicates()
+
                 st.dataframe(df,use_container_width= True,hide_index=True)
 
                 #allow download of findings
